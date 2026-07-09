@@ -1,0 +1,78 @@
+# Autoridade/Subversão — pt-PT rendering of construct_en.yaml (= cycle-7, FROZEN).
+# ─────────────────────────────────────────────────────────────────────────────────────
+# Faithful translation, NOT a re-calibration: ids, layer structure, stated formula,
+# essential/reverse flags, integration block, and the ANSWER TOKENS ({"answer":
+# "yes"|"no"}) are byte-identical to the English construct; only natural-language
+# content is rendered into European Portuguese (Acordo Ortográfico 1990).
+# The baked English scaffold graincal adds around clause-level calls is localised
+# post-render by localize_prompts.py (same 1:1 fixed-string mapping every run).
+# Divergences from construct_en.yaml other than language are BUGS.
+
+construct: authority
+display_name: "Autoridade/Subversão (ciclo 7 — pt-PT)"
+output_schema: { type: binary }
+
+undecomposed_prompt: |
+  Decida se o texto expressa o fundamento moral Autoridade/Subversão.
+
+  Autoridade/Subversão diz respeito à ordenação moral do poder e da deferência: autoridades
+  legítimas e indivíduos de estatuto elevado, tais como líderes, dirigentes, governos, polícia,
+  tribunais, empregadores, pais, mais velhos, autoridades religiosas e autoridades coletivas
+  como o ‘sistema’ ou as virtudes da liderança, da obediência, do dever e do respeito
+  pela tradição, e os vícios da desordem, do desafio à autoridade e do ressentimento contra
+  a hierarquia.
+
+  Responda com o código yes se o texto fizer QUALQUER uma das seguintes coisas:
+  1. Toma uma posição sobre obediência, deferência ou ordem, elogiando ou apelando à
+     obediência, ao dever, ao respeito ou à ordem; instando alguém a obedecer a uma
+     autoridade legítima ou a recorrer a ela; condenando motins, desafios à autoridade ou
+     desrespeito; ou, inversamente, apelando ao desafio, à resistência ou ao derrube, ou
+     aplaudindo a rebelião.
+  2. Avalia uma autoridade, um líder, uma instituição ou um candidato ao poder NO SEU PAPEL
+     DE PODER, a sua conduta no exercício do poder, a sua aptidão ou legitimidade para o
+     deter, ou a sua fiabilidade, incluindo comparações entre autoridades ou com
+     alternativas.
+  3. Avalia a obediência, a hierarquia, a tradição ou a ordem social ENQUANTO VALORES,
+     enaltecendo-as, ou ressentindo-se delas e rejeitando-as.
+
+  Outras preocupações morais (equidade, cuidado, lealdade, pureza) podem estar presentes no
+  mesmo texto; a sua presença não exclui Autoridade; codifique sim quando autoridade estiver presente.
+
+  Responda no se o texto apenas mencionar uma autoridade sem qualquer posição ou avaliação;
+  exprimir apenas uma reação genérica de bom/mau sem base identificável na autoridade ou na
+  ordem; ou apenas discordar das posições políticas ou decisões de uma autoridade, sem
+  julgar a entidade enquanto detentora ou exercedora de poder.
+
+  Responda APENAS com JSON: {"answer": "yes"|"no"} — "yes" para SIM, "no" para NÃO.
+
+layers:
+  detection:
+    - id: D_entity
+      question: "O texto nomeia ou refere uma autoridade, um detentor de autoridade ou a ordem social. Por exemplo um governante, líder, político, dirigente, governo, polícia, tribunal, forças armadas, empregador, chefe, pai ou mãe, um mais velho, professor; uma lei, regra, instituição, tradição, ou «as regras/a ordem» de uma comunidade; uma autoridade religiosa como Deus, as escrituras, os mandamentos ou uma igreja; um candidato ou pretendente ao poder; ou uma autoridade coletiva como «o sistema», «a elite», «o regime»?"
+      essential: true
+
+  distinction:
+    - id: X_equality
+      question: "O texto levanta uma preocupação com discriminação de grupos ou tratamento desigual tais como racismo, sexismo, direitos civis, opressão, privilégio, ou a exclusão injusta de um grupo social?"
+      reverse: true
+    - id: X_proportionality
+      question: "O texto levanta uma preocupação com corrupção, nepotismo, batota, ou com alguém receber mais ou menos do que merece (mérito, merecimento, recompensa justa)?"
+      reverse: true
+    - id: X_loyalty
+      question: "O texto levanta uma preocupação com lealdade ao grupo ou traição tais como solidariedade com o próprio grupo, equipa, lado, partido ou nação enquanto membro, ou traição para com eles?"
+      reverse: true
+
+  appraisal:
+    - id: A_order_stance
+      question: "O texto pratica um ato de tomada de posição sobre obediência, deferência ou ordem social, QUER apoiando-a: elogiando ou apelando à obediência, ao dever, ao respeito ou à manutenção da ordem; instando alguém a obedecer a uma autoridade legítima ou a recorrer a ela (por exemplo, «chama a polícia»); um falante a exigir a deferência devida ao seu papel («sou teu pai — tens de me respeitar»); ou condenando motins, desafio à autoridade ou desrespeito, QUER opondo-se-lhe: apelando ao desafio, à resistência, à desobediência ou ao derrube, ou aplaudindo a rebelião ou a desordem?"
+    - id: A_order_values
+      question: "O texto avalia a obediência, a hierarquia, a tradição ou a ordem social ENQUANTO VALORES, QUER defendendo-as como bens (por exemplo, «a obediência aos pais é uma virtude importante», «precisamos de lei e ordem», «eles precisam de um líder forte») quer ressentindo-se delas e rejeitando-as (por exemplo, ressentir-se de que alguém tenha o direito de dar ordens, gozar com a reverência pelos fundadores ou pela tradição, ou condenar a expectativa de obediência)?"
+    - id: A_assess_authority
+      question: "O texto avalia uma autoridade, um líder, uma instituição ou um candidato ao poder específicos NO SEU PAPEL DE PODER, julgando a sua conduta no exercício do poder, a sua aptidão, legitimidade ou fiabilidade para o deter (por exemplo, chamar a um governante tirânico, corrupto enquanto governante, demagogo ou inapto; ou elogiar um líder ou uma instituição como legítimos, fiáveis ou aptos a liderar), incluindo comparações entre autoridades ou com alternativas? Responda NO se o texto se limitar a concordar ou discordar de posições políticas ou decisões. O julgamento tem de dizer respeito à entidade enquanto detentora ou exercedora de poder, e não faria sentido acerca de uma pessoa comum."
+
+integration:
+  rule: stated_formula
+  formula: "(D_entity AND (A_order_stance OR A_assess_authority)) OR A_order_values"
+  evaluation: hard
+  diagnostic: l2_logistic
+  seed: 20260407

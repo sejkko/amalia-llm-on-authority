@@ -1,0 +1,98 @@
+# Authority / Subversion — CYCLE 7 (registry-driven redesign; audit → clauses → gates).
+# ─────────────────────────────────────────────────────────────────────────────────────
+# DERIVATION: CODEBOOK_COVERAGE_AUDIT.md element registry → clauses (each with provenance,
+# see CYCLE7_SPEC.md §3) → recomposed holistic. Clause-admission criteria (Manuel):
+# detectable (unary, span-pointable) · independent (distinct evidence types: entity mention /
+# stance act / value assertion / entity-in-power-role evaluation) · maximally general
+# (polarity merged per clause — direction recovered post-hoc from justifications; splits
+# licensed only by evidence type, per the A_uphold frame-subordination autopsy).
+#
+# INTEGRATION = the construct's own Boolean rule (stated_formula — native in graincal as
+# of this cycle); the L2 logistic is fitted alongside ONLY as the baseline comparator /
+# deviation diagnostic:
+#
+#     authority  ⟺  (D_entity AND (A_order_stance OR A_assess_authority)) OR A_order_values
+#
+# X_* clauses are DIAGNOSTIC FEATURES ONLY — never exclusions (multi-label finding:
+# Trager is co-occurrence-coded; veto-site gold rates 0.83–0.95 showed hard exclusions
+# fire on true positives where they act).
+#
+# NEW vs cycle 6: A_assess_authority (positive pole = Trager "virtues of leadership";
+# negative pole = DEFENDED ADDITION, see spec §3); A_order_values (closes the
+# resenting-hierarchy double gap; detection-independent disjunct); D_entity roster
+# broadened (religious authority, collective labels, candidates); D_order_terms /
+# D_disorder_terms retired (no role in the stated rule; vocabulary presence is not a
+# construct condition).
+
+construct: authority
+display_name: "Authority / Subversion (cycle 7 — registry-driven)"
+output_schema: { type: binary }
+
+# ── HOLISTIC (recomposed; inference-permitted UPPER BOUND + the prose the formula
+#    formalises; FROZEN for the cycle once piloted) ─────────────────────────────────
+undecomposed_prompt: |
+  Code the text for the moral foundation Authority/Subversion.
+
+  Authority/Subversion concerns the moral ordering of power and deference: legitimate
+  authorities and high-status individuals — leaders, officials, governments, police, courts,
+  employers, parents, elders, religious authorities, and collective authorities such as "the
+  establishment" — and the virtues of leadership, obedience, duty, and respect for tradition,
+  and the vices of disorderliness, defiance, and resentment of hierarchy.
+
+  Answer YES if the text does ANY of the following:
+  1. Takes a stance on obedience, deference, or order — praising or calling for obedience,
+     duty, respect, or order; urging someone to comply with or turn to a legitimate authority;
+     condemning rioting, defiance, or disrespect; or, conversely, calling for defiance,
+     resistance, or overthrow, or cheering rebellion.
+  2. Evaluates an authority, leader, institution, or contender for power IN ITS POWER ROLE —
+     its conduct in exercising power, its fitness or legitimacy to hold it, or its
+     trustworthiness — including comparisons between authorities or with alternatives.
+  3. Evaluates obedience, hierarchy, tradition, or social order AS VALUES — lauding them,
+     or resenting and rejecting them.
+
+  Other moral concerns (fairness, care, loyalty, purity) may be present in the same text;
+  their presence does not exclude Authority — code what is present.
+
+  Answer NO if the text only mentions an authority with no stance or evaluation; expresses
+  only a generic good/bad reaction with no identifiable basis in authority or order; or only
+  disagrees with an authority's policy positions or decisions, without judging the entity as
+  a holder or exerciser of power.
+
+  Respond with ONLY JSON: {"answer": "yes"|"no"}.
+
+layers:
+  # ── DETECTION — scoped-broad entity roster (funnel principle: recall here, precision
+  #    owed by the appraisal conjunction; monitored by the necessity/veto gauges) ──────
+  detection:
+    - id: D_entity
+      question: "Does the text name or refer to an authority, an authority-holder, or the social order — for example a ruler, leader, politician, official, government, police, court, military, employer, boss, parent, elder, teacher; a law, rule, institution, tradition, or 'the rules/order' of a community; a religious authority such as God, scripture, commandments, or a church; a candidate or contender for power; or a collective authority such as 'the establishment', 'the elite', 'the regime', or 'the system'?"
+      essential: true
+
+  # ── DISTINCTION — neighbour-foundation detectors; DIAGNOSTIC ONLY (never exclusions) ─
+  distinction:
+    - id: X_equality
+      question: "Does the text raise a concern about group-based discrimination or unequal treatment — racism, sexism, civil rights, oppression, privilege, or the unfair exclusion of a social group?"
+      reverse: true
+    - id: X_proportionality
+      question: "Does the text raise a concern about corruption, nepotism, cheating, or someone getting more or less than they deserve (merit, desert, fair reward)?"
+      reverse: true
+    - id: X_loyalty
+      question: "Does the text raise a concern about in-group loyalty or betrayal — solidarity with, or treachery toward, one's own group, team, side, party, or nation as a fellow member?"
+      reverse: true
+
+  # ── APPRAISAL — three unary bipolar clauses; distinct evidence types; polarity is
+  #    recovered post-hoc from justifications, not asked as a field ────────────────────
+  appraisal:
+    - id: A_order_stance
+      question: "Does the text take a stance act about obedience, deference, or social order — EITHER supporting it: praising or calling for obedience, duty, respect, or order-keeping; urging someone to comply with or turn to a legitimate authority (for example, 'get the police involved'); a speaker demanding deference owed to their role ('I'm your dad — you need to respect me'); or condemning rioting, defiance, or disrespect — OR opposing it: calling for defiance, resistance, disobedience, or overthrow, or cheering rebellion or disorder?"
+    - id: A_order_values
+      question: "Does the text evaluate obedience, hierarchy, tradition, or social order AS VALUES — either upholding them as goods (for example, 'obedience to parents is an important virtue', 'we need law and order', 'they need a strong leader') or resenting and rejecting them (for example, resenting that anyone gets to give orders, mocking reverence for founders or tradition, or condemning the expectation of compliance)?"
+    - id: A_assess_authority
+      question: "Does the text evaluate a specific authority, leader, institution, or contender for power IN ITS POWER ROLE — judging its conduct in exercising power, its fitness, legitimacy, or trustworthiness to hold it (for example, calling a ruler tyrannical, corrupt-as-ruler, a demagogue, or unfit; or praising a leader or institution as legitimate, trustworthy, or fit to lead), including comparisons between authorities or with alternatives? Answer NO if the text merely agrees or disagrees with policy positions or decisions — the judgement must concern the entity as a holder or exerciser of power, and would not make sense about an ordinary person."
+
+integration:
+  rule: stated_formula
+  formula: "(D_entity AND (A_order_stance OR A_assess_authority)) OR A_order_values"
+  evaluation: hard
+  diagnostic: l2_logistic     # the fitted comparator / deviation diagnostic — never the verdict
+  seed: 20260407              # seed for the comparator fit

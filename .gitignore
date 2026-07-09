@@ -1,0 +1,6 @@
+.DS_Store
+__pycache__/
+*.pyc
+# runtime outputs of shipped scripts
+FILLED_DEFAULTS_*.txt
+.ipynb_checkpoints/

@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+message: >-
+  If you use this dataset or code, please cite the paper (reference below, TBD on
+  acceptance) and the Moral Foundations Reddit Corpus (Trager et al. 2022) when using
+  text_en or gt_code.
+title: >-
+  Agreement is not measurement: auditing AMÁLIA-9B as a social-science annotator —
+  data and analysis code
+type: dataset
+authors:
+  - family-names: Pita
+    given-names: Manuel
+version: 1.0.0
+date-released: "2026-07-08"
+license: MIT
+license-url: https://opensource.org/licenses/MIT
+keywords:
+  - large language models
+  - annotation
+  - construct validity
+  - moral foundations
+  - European Portuguese
+  - national language models
+references:
+  - type: report
+    title: "Pre-registration: Grain-calibrated evaluation of AMÁLIA-9B"
+    authors:
+      - family-names: Pita
+        given-names: Manuel
+    doi: 10.5281/zenodo.21178967
+    year: 2026
+  - type: conference-paper
+    title: "AMALIA: A Fully Open Large Language Model for European Portuguese"
+    authors:
+      - family-names: Simplício
+        given-names: Afonso
+    year: 2026
+  - type: dataset
+    title: "The Moral Foundations Reddit Corpus"
+    authors:
+      - family-names: Trager
+        given-names: Jackson
+    year: 2022
+notes: >-
+  Code is MIT-licensed; data files (data/, constructs/) are CC-BY 4.0 — see
+  DATA_LICENSE.md.
