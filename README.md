@@ -1,6 +1,8 @@
-# Agreement is not measurement: auditing AMÁLIA-9B as a social-science annotator
+# Validity of LLMs as data annotators: AMALIA on authority — replication package
 
-Replication package for the paper *[title TBD]* (Pita, 2026). The study audits AMÁLIA-9B,
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21275660.svg)](https://doi.org/10.5281/zenodo.21275660)
+
+Replication package for the paper *Validity of LLMs as data annotators: AMALIA on authority* (Pita, 2026). The study audits AMÁLIA-9B,
 Portugal's national large language model, as an annotator of the moral foundation
 Authority/Subversion on a purpose-built European-Portuguese corpus, against
 pre-registered criteria.
@@ -55,5 +57,13 @@ the registered criteria (≥50% shortcut basis; ≥50% evidence at most partiall
 
 ## Citation
 
-See `CITATION.cff`. Paper citation TBD. Pre-registration: Pita, M. (2026). Zenodo.
-https://doi.org/10.5281/zenodo.21178967
+If you use this package, please cite the paper (journal reference to be added on acceptance) and this
+archive:
+
+> Pita, M. (2026). *Validity of LLMs as data annotators: AMALIA on authority —
+> data and analysis code* (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.21275660
+
+Machine-readable metadata is in `CITATION.cff`. Pre-registration:
+https://doi.org/10.5281/zenodo.21178967. Source texts and labels derive from the Moral
+Foundations Reddit Corpus (Trager et al. 2022, CC-BY 4.0); cite MFRC when using `text_en`
+or `gt_code`.

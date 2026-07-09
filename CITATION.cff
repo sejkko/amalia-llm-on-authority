@@ -1,18 +1,24 @@
 cff-version: 1.2.0
 message: >-
-  If you use this dataset or code, please cite the paper (reference below, TBD on
-  acceptance) and the Moral Foundations Reddit Corpus (Trager et al. 2022) when using
+  If you use this dataset or code, please cite the paper (reference below; update on
+  journal acceptance) and the Moral Foundations Reddit Corpus (Trager et al. 2022) when using
   text_en or gt_code.
 title: >-
-  Agreement is not measurement: auditing AMÁLIA-9B as a social-science annotator —
+  Validity of LLMs as data annotators: AMALIA on authority —
   data and analysis code
 type: dataset
 authors:
   - family-names: Pita
     given-names: Manuel
+    orcid: "https://orcid.org/0000-0003-2180-6823"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21275660
+    description: Zenodo archive of v1.0.0
 version: 1.0.0
-date-released: "2026-07-08"
+date-released: "2026-07-09"
 license: MIT
+doi: 10.5281/zenodo.21275660
 license-url: https://opensource.org/licenses/MIT
 keywords:
   - large language models
